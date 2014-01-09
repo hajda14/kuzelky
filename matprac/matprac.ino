@@ -19,14 +19,24 @@ int kuzelka1 = A9;
 int kuzelka2 = A7;
 int kuzelka3 = A10;
 int kuzelka4 = A12;
-int kuzelka5 = A11;
-int kuzelka6 = A8;
+int kuzelka5 = A8;
+int kuzelka6 = A11;
 int kuzelka7 = A13;
 int kuzelka8 = A15;
 int kuzelka9 = A14;
 int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
+
+boolean lockkuzelka1 =false;
+boolean lockkuzelka2 =true;
+boolean lockkuzelka3 =false;
+boolean lockkuzelka4 =false;
+boolean lockkuzelka5 =false;
+boolean lockkuzelka6 =false;
+boolean lockkuzelka7 =false;
+boolean lockkuzelka8 =false;
+boolean lockkuzelka9 =false;
 
 char buf[12]; 
 char buf1[12];
@@ -376,18 +386,17 @@ void kuzelky (boolean a,boolean b,boolean c,boolean d,boolean e,boolean f,boolea
 {
 
 
-  if (a == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}   myGLCD.fillCircle((maxx+90)/2+40,30,20);
-  if (b == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}   myGLCD.fillCircle((maxx+90)/2-20,80,20);
-  if (c == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}   myGLCD.fillCircle((maxx+90)/2-80,130,20);
+  if (a == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka1==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2+40,30,20);
+  if (b == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka2==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2-20,80,20);
+  if (c == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka3==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2-80,130,20);
 
-  if (d == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}   myGLCD.fillCircle((maxx+90)/2+100,80,20);
-  if (e == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}   myGLCD.fillCircle((maxx+90)/2+40,130,20);
-  if (f == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}   myGLCD.fillCircle((maxx+90)/2-20,180,20);
+  if (d == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka4==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2+100,80,20);
+  if (e == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka5==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2+40,130,20);
+  if (f == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka6==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2-20,180,20);
 
-  if (g == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}  myGLCD.fillCircle((maxx+90)/2+160,130,20);
-  if (h == 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}  myGLCD.fillCircle((maxx+90)/2+100,180,20);
-  if (ch== 1) {myGLCD.setColor(255,0,0);}else{myGLCD.setColor(0,0,255);}  myGLCD.fillCircle((maxx+90)/2+40,230,20);
-
+  if (g == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka7==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}  myGLCD.fillCircle((maxx+90)/2+160,130,20);
+  if (h == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka8==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}  myGLCD.fillCircle((maxx+90)/2+100,180,20);
+  if (ch== 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka9==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}  myGLCD.fillCircle((maxx+90)/2+40,230,20);
 }
 
 void onegame (const char* text)
@@ -453,12 +462,13 @@ void onegame (const char* text)
                      for(int p = 160;p<280;p=p+40)
                                {
                                   while(digitalRead(tlac)==0)
-                                  {kuzelky(digitalRead(kuzelka1),digitalRead(kuzelka2),digitalRead(kuzelka3),digitalRead(kuzelka4),digitalRead(kuzelka5),digitalRead(kuzelka6),digitalRead(kuzelka7),digitalRead(kuzelka8),digitalRead(kuzelka9));
+                                  { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
 }
-                                      soucet = digitalRead(kuzelka1)+digitalRead(kuzelka2)+digitalRead(kuzelka3)+digitalRead(kuzelka4)+digitalRead(kuzelka5)+digitalRead(kuzelka6)+digitalRead(kuzelka7)+digitalRead(kuzelka8)+digitalRead(kuzelka9);
-                                      const char* chrsoucet = (char*)(20-soucet);
-                                      soucet = soucet-(9-nastole);
-                                      nastole=(nastole-soucet);
+                                      soucet = stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9);
+                                      for(int c = 1;c<10;c++)
+                                      {
+                                       if (stavkuzelky(c)==1) {zmenstavkuzelek(true,c);}
+                                      }
                                       itoa(soucet,buf,10);
                                       myGLCD.setColor(0,0,0);
                                       myGLCD.print(buf,p+4,234,0);  
@@ -467,16 +477,90 @@ void onegame (const char* text)
                                 delay(400);
                               }
                     myGLCD.print(buf1,l,k,0); 
-    
+                    zmenahrace();    
                }
    }
 }
-  
-  kuzelky(digitalRead(kuzelka1),digitalRead(kuzelka2),digitalRead(kuzelka3),digitalRead(kuzelka4),digitalRead(kuzelka5),digitalRead(kuzelka6),digitalRead(kuzelka7),digitalRead(kuzelka8),digitalRead(kuzelka9));
+
+ kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
 } 
 
 }
 
+void zmenahrace()
+{
+                                      for(int c = 1;c<10;c++)
+                                      {
+                                       zmenstavkuzelek(false,c);
+                                      }
+                                      zmenstavkuzelek(true,2);
+}
+
+int stavkuzelky(int kuzel)
+{
+   switch (kuzel) {
+case 1:
+      if (lockkuzelka1 == true){return 0;}else{return digitalRead(kuzelka1);}
+      break;
+case 2:
+      if (lockkuzelka2 == true){return 0;}else{return digitalRead(kuzelka2);}
+      break;
+case 3:
+      if (lockkuzelka3 == true){return 0;}else{return digitalRead(kuzelka3);}
+      break;
+case 4:
+      if (lockkuzelka4 == true){return 0;}else{return digitalRead(kuzelka4);}
+      break;
+case 5:
+      if (lockkuzelka5 == true){return 0;}else{return digitalRead(kuzelka5);}
+      break;
+case 6:
+      if (lockkuzelka6 == true){return 0;}else{return digitalRead(kuzelka6);}
+      break;
+case 7:
+      if (lockkuzelka7 == true){return 0;}else{return digitalRead(kuzelka7);}
+      break;
+case 8:
+      if (lockkuzelka8 == true){return 0;}else{return digitalRead(kuzelka8);}
+      break;
+case 9:
+      if (lockkuzelka9 == true){return 0;}else{return digitalRead(kuzelka9);}
+      break;
+}
+}
+
+int zmenstavkuzelek(boolean zamkni,int kuzel)
+{
+   switch (kuzel) {
+case 1:
+      if (zamkni == true){lockkuzelka1=true;}else{lockkuzelka1=false;}
+      break;
+case 2:
+      if (zamkni == true){lockkuzelka2=true;}else{lockkuzelka2=false;}
+      break;
+case 3:
+      if (zamkni == true){lockkuzelka3=true;}else{lockkuzelka3=false;}
+      break;
+case 4:
+      if (zamkni == true){lockkuzelka4=true;}else{lockkuzelka4=false;}
+      break;
+case 5:
+      if (zamkni == true){lockkuzelka5=true;}else{lockkuzelka5=false;}
+      break;
+case 6:
+      if (zamkni == true){lockkuzelka6=true;}else{lockkuzelka6=false;}
+      break;
+case 7:
+      if (zamkni == true){lockkuzelka7=true;}else{lockkuzelka7=false;}
+      break;
+case 8:
+      if (zamkni == true){lockkuzelka8=true;}else{lockkuzelka8=false;}
+      break;
+case 9:
+      if (zamkni == true){lockkuzelka9=true;}else{lockkuzelka9=false;}
+      break;
+}
+}
 
 void button (int x,int y,int width,int height,const char* text)
 {
