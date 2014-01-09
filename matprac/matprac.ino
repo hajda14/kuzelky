@@ -343,6 +343,13 @@ void oneplayer(const char* text)
   screen="oneplayer";
   myGLCD.clrScr();
   myGLCD.fillScr(0,100,0);
+  myGLCD.setColor(25,25,220);
+  myGLCD.fillRoundRect(maxx/2+90,85,maxx/2+120,115);
+    myGLCD.setColor(0,0,0);
+    myGLCD.drawRoundRect(maxx/2+90,85,maxx/2+120,115);
+       myGLCD.fillRect(maxx/2+92,98,maxx/2+118,102);
+       myGLCD.fillRect(maxx/2+103,87,maxx/2+107,112);
+
   textbox(maxx/2-80,90,160,20,text);
   button(maxx/4+maxx/4+20,160,80,30,"OK");
   button(maxx/4,160,80,30,"BACK");
