@@ -24,6 +24,8 @@ int kuzelka6 = A11;
 int kuzelka7 = A13;
 int kuzelka8 = A15;
 int kuzelka9 = A14;
+
+int aktualnihrac = 1;
 int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
@@ -41,6 +43,7 @@ boolean lockkuzelka9 =false;
 
 char buf[12]; 
 char buf1[12];
+char buf2[12];
 /* touch*/
 struct pix_
 {
@@ -475,6 +478,9 @@ void onegame (const char* text)
 }
                                       soucet = stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9);
                                       soucet =9-soucet;
+                                      if (minulejsoucet ==9){
+                                      minulejsoucet=0;
+                                      }
                                       soucet = soucet-minulejsoucet;
                                      
                                       for(int c = 1;c<10;c++)
@@ -484,7 +490,6 @@ void onegame (const char* text)
                                       
                                        if (soucet+minulejsoucet ==9)
                                       {
-                                        minulejsoucet=0;
                                         for(int c = 1;c<10;c++)
                                       {
                                        zmenstavkuzelek(false,c);
@@ -495,9 +500,11 @@ void onegame (const char* text)
                                       myGLCD.setColor(0,0,0);
                                       myGLCD.print(buf,p+4,234,0);  
                                       soucet_hodu = soucet_hodu + soucet;
-                                      minulejsoucet=minulejsoucet+soucet;
                                       itoa(soucet_hodu,buf1,10);
+                                      minulejsoucet=minulejsoucet+soucet;
                                 delay(400);
+                                 itoa(minulejsoucet,buf2,10);
+                                 myGLCD.print(buf2,300,240,0); 
                               }
                     myGLCD.print(buf1,l,k,0); 
                     zmenahrace();    
@@ -510,13 +517,13 @@ void onegame (const char* text)
 
 }
 
-void zmenahrace()
+void zmenahrace(int hrac)
 {
                                       for(int c = 1;c<10;c++)
                                       {
                                        zmenstavkuzelek(false,c);
                                       }
-                                      
+                                          
 }
 
 int stavkuzelky(int kuzel)
