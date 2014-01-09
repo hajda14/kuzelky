@@ -27,9 +27,10 @@ int kuzelka9 = A14;
 int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
+int minulejsoucet =0;
 
 boolean lockkuzelka1 =false;
-boolean lockkuzelka2 =true;
+boolean lockkuzelka2 =false;
 boolean lockkuzelka3 =false;
 boolean lockkuzelka4 =false;
 boolean lockkuzelka5 =false;
@@ -465,6 +466,7 @@ void onegame (const char* text)
                  myGLCD.drawLine(193,230,193,260);
                   myGLCD.drawLine(226,230,226,260);
                  int soucet_hodu = 0;
+                 minulejsoucet =0;
                  nastole = 9;
                      for(int p = 160;p<280;p=p+40)
                                {
@@ -472,14 +474,28 @@ void onegame (const char* text)
                                   { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
 }
                                       soucet = stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9);
+                                      soucet =9-soucet;
+                                      soucet = soucet-minulejsoucet;
+                                     
                                       for(int c = 1;c<10;c++)
                                       {
-                                       if (stavkuzelky(c)==1) {zmenstavkuzelek(true,c);}
+                                       if (stavkuzelky(c)==0) {zmenstavkuzelek(true,c);}
+                                      }
+                                      
+                                       if (soucet+minulejsoucet ==9)
+                                      {
+                                        minulejsoucet=0;
+                                        for(int c = 1;c<10;c++)
+                                      {
+                                       zmenstavkuzelek(false,c);
+                                      }
+                                      
                                       }
                                       itoa(soucet,buf,10);
                                       myGLCD.setColor(0,0,0);
                                       myGLCD.print(buf,p+4,234,0);  
                                       soucet_hodu = soucet_hodu + soucet;
+                                      minulejsoucet=minulejsoucet+soucet;
                                       itoa(soucet_hodu,buf1,10);
                                 delay(400);
                               }
@@ -500,7 +516,7 @@ void zmenahrace()
                                       {
                                        zmenstavkuzelek(false,c);
                                       }
-                                      zmenstavkuzelek(true,2);
+                                      
 }
 
 int stavkuzelky(int kuzel)
@@ -567,6 +583,7 @@ case 9:
       if (zamkni == true){lockkuzelka9=true;}else{lockkuzelka9=false;}
       break;
 }
+
 }
 
 void button (int x,int y,int width,int height,const char* text)
