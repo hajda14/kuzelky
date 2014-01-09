@@ -413,8 +413,8 @@ void onegame (const char* text)
   myGLCD.print(text,10,40,-45);
   myGLCD.setFont(arial_bold);
    myGLCD.drawRoundRect(160,230,260,260);
- // myGLCD.drawLine(31,56,31,256);
-  //myGLCD.drawLine(31,56,31,256);
+  myGLCD.drawLine(193,230,193,260);
+  myGLCD.drawLine(226,230,226,260);
   myGLCD.print("1",15,60,0);
   myGLCD.print("2",15,80,0);
   myGLCD.print("3",15,100,0);
@@ -446,6 +446,8 @@ void onegame (const char* text)
                  myGLCD.setColor(228,185,80);
                  myGLCD.fillRoundRect(161,231,259,259);
                  myGLCD.setColor(0,0,0);
+                 myGLCD.drawLine(193,230,193,260);
+                  myGLCD.drawLine(226,230,226,260);
                  int soucet_hodu = 0;
                  nastole = 9;
                      for(int p = 160;p<280;p=p+40)
