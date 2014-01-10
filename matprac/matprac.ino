@@ -25,6 +25,7 @@ int kuzelka7 = A13;
 int kuzelka8 = A15;
 int kuzelka9 = A14;
 
+int pozicepismakol=0;
 int posun = 240;
 int ulozenejposun = 0;
 int aktualnihrac = 1;
@@ -32,7 +33,7 @@ int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
 int minulejsoucet =0;
-int pocethracu=3;
+int pocethracu=4;
 int velikosttabulky=0;
 boolean lockkuzelka1 =false;
 boolean lockkuzelka2 =false;
@@ -433,7 +434,21 @@ else{
  
 }
 
+void posunkol(int x)//160  +33  +66   
+{
+   myGLCD.setColor(0,0,0);
+ myGLCD.drawRoundRect(x,230,x+100,260);
 
+             myGLCD.drawLine(x+33,230,x+33,260);
+             myGLCD.drawLine(x+66,230,x+66,260);
+                                                    myGLCD.setColor(228,185,80);
+             myGLCD.fillRoundRect(x+1,231,x+99,259);
+                                                    myGLCD.setColor(0,0,0);
+             myGLCD.drawLine(x+33,230,x+33,260);
+             myGLCD.drawLine(x+66,230,x+66,260);
+             
+             pozicepismakol=x;
+}
 
 void onegame (const char* text)
 {
@@ -445,10 +460,17 @@ void onegame (const char* text)
   myGLCD.setFont(SmallFont); 
   myGLCD.print(text,10,40,-45);
   myGLCD.setFont(arial_bold);
-  
-             myGLCD.drawRoundRect(160,230,260,260);
-             myGLCD.drawLine(193,230,193,260);
-             myGLCD.drawLine(226,230,226,260);
+       if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,56,113,256);posun=maxx-184;posunkol(120);}
+else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);posun=maxx-184;posunkol(160);} 
+else if (pocethracu==4){velikosttabulky=200;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);myGLCD.drawLine(195,56,195,256);posun=maxx-184;posunkol(200);} 
+
+else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
+    for(int p=50;p<270;p=p+20)
+        {
+    myGLCD.drawLine(0,p+6,velikosttabulky-6,p+6);
+        }
+                                
+            
   myGLCD.print("1",15,60,0);
   myGLCD.print("2",15,80,0);
   myGLCD.print("3",15,100,0);
@@ -462,14 +484,10 @@ void onegame (const char* text)
   myGLCD.drawLine(31,56,31,256);
   myGLCD.drawLine(72,56,72,256);
  
-  
-     if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,56,113,256);posun=maxx-113;}
-else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);posun=maxx-184;} 
-else  {velikosttabulky=78;}
-    for(int p=50;p<270;p=p+20)
-        {
-    myGLCD.drawLine(0,p+6,velikosttabulky-6,p+6);
-        }
+  myGLCD.setBackColor(0,200,0);
+  myGLCD.print(" ",40,60,0);
+  myGLCD.setBackColor(228,185,80);
+
   while(endgame==false)
 { 
        if (digitalRead(tlac) ==1)
@@ -479,16 +497,20 @@ else  {velikosttabulky=78;}
     {
              for(int l = 40;l<velikosttabulky;l=l+40)
                { 
-                 myGLCD.setColor(228,185,80);
-                 myGLCD.fillRoundRect(361,231,459,259);
-                 myGLCD.setColor(0,0,0);
-                    myGLCD.drawLine(193,230,193,260);
-                    myGLCD.drawLine(226,230,226,260);
+                 if (pocethracu==2){posun=maxx-184;posunkol(120);}
+else if (pocethracu==3){posun=maxx-184;posunkol(160);} 
+else if (pocethracu==4){posun=maxx-184;posunkol(200);} 
+
+else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
+                     
                  int soucet_hodu = 0;
                  minulejsoucet =0;
                  nastole = 9;
                      for(int p = 160;p<280;p=p+40)
-                               {
+                     {
+                               myGLCD.setBackColor(0,200,0);
+                               myGLCD.print(" ",l,k,0);
+                               myGLCD.setBackColor(228,185,80);
                                   while(digitalRead(tlac)==0)
                                   { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
 }
@@ -515,7 +537,7 @@ else  {velikosttabulky=78;}
                                       }
                                       itoa(soucet,buf,10);
                                       myGLCD.setColor(0,0,0);
-                                      myGLCD.print(buf,p+204,234,0);  
+                                      myGLCD.print(buf,p+pozicepismakol-159,234,0);  
                                       soucet_hodu = soucet_hodu + soucet;
                                       itoa(soucet_hodu,buf1,10);
                                       minulejsoucet=minulejsoucet+soucet;
@@ -523,7 +545,7 @@ else  {velikosttabulky=78;}
                                 
                               }
                     myGLCD.print(buf1,l,k,0); 
-                    zmenahrace();    
+                    zmenahrace(l,k);    
                }
    }
 }
@@ -533,13 +555,13 @@ else  {velikosttabulky=78;}
 
 }
 
-void zmenahrace()
+void zmenahrace(int l, int k)
 {
                                       for(int c = 1;c<10;c++)
                                       {
                                        zmenstavkuzelek(false,c);
                                       }
-
+                                      
                                           
 }
 
