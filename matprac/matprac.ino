@@ -398,13 +398,15 @@ void skore()
 
 void kuzelky (boolean a,boolean b,boolean c,boolean d,boolean e,boolean f,boolean g,boolean h,boolean ch)
 {
+  int k = posun/6;
+  int r= k/2;
 if (posun == ulozenejposun)
 {
 }
 else{ 
   ulozenejposun=posun;
   int k = ulozenejposun/6;
-  int r = k/2;
+  int r= k/2;
   
   myGLCD.setColor(0,0,0);
  myGLCD.drawCircle(maxx-(3*k),(1*k),r );    myGLCD.drawCircle(maxx-(3*k),(1*k),r-1 );   myGLCD.drawCircle(maxx-(3*k),(1*k),r-2 );
@@ -431,6 +433,8 @@ else{
  
 }
 
+
+
 void onegame (const char* text)
 {
   screen="onegame";
@@ -441,9 +445,10 @@ void onegame (const char* text)
   myGLCD.setFont(SmallFont); 
   myGLCD.print(text,10,40,-45);
   myGLCD.setFont(arial_bold);
-             myGLCD.drawRoundRect(360,230,460,260);
-             myGLCD.drawLine(393,230,393,260);
-             myGLCD.drawLine(426,230,426,260);
+  
+             myGLCD.drawRoundRect(160,230,260,260);
+             myGLCD.drawLine(193,230,193,260);
+             myGLCD.drawLine(226,230,226,260);
   myGLCD.print("1",15,60,0);
   myGLCD.print("2",15,80,0);
   myGLCD.print("3",15,100,0);
@@ -458,8 +463,8 @@ void onegame (const char* text)
   myGLCD.drawLine(72,56,72,256);
  
   
-     if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,56,113,256);}
-else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);} 
+     if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,56,113,256);posun=maxx-113;}
+else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);posun=maxx-184;} 
 else  {velikosttabulky=78;}
     for(int p=50;p<270;p=p+20)
         {
@@ -477,8 +482,8 @@ else  {velikosttabulky=78;}
                  myGLCD.setColor(228,185,80);
                  myGLCD.fillRoundRect(361,231,459,259);
                  myGLCD.setColor(0,0,0);
-                    myGLCD.drawLine(393,230,393,260);
-                    myGLCD.drawLine(426,230,426,260);
+                    myGLCD.drawLine(193,230,193,260);
+                    myGLCD.drawLine(226,230,226,260);
                  int soucet_hodu = 0;
                  minulejsoucet =0;
                  nastole = 9;
