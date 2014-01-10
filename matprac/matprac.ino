@@ -25,6 +25,8 @@ int kuzelka7 = A13;
 int kuzelka8 = A15;
 int kuzelka9 = A14;
 
+int posun = 240;
+int ulozenejposun = 0;
 int aktualnihrac = 1;
 int tlac = 11;
 int Dlog1 = 12;
@@ -44,7 +46,7 @@ boolean lockkuzelka9 =false;
 
 char buf[12]; 
 char buf1[12];
-char buf2[12];
+
 /* touch*/
 struct pix_
 {
@@ -396,19 +398,37 @@ void skore()
 
 void kuzelky (boolean a,boolean b,boolean c,boolean d,boolean e,boolean f,boolean g,boolean h,boolean ch)
 {
+if (posun == ulozenejposun)
+{
+}
+else{ 
+  ulozenejposun=posun;
+  int k = ulozenejposun/6;
+  int r = k/2;
+  
+  myGLCD.setColor(0,0,0);
+ myGLCD.drawCircle(maxx-(3*k),(1*k),r );    myGLCD.drawCircle(maxx-(3*k),(1*k),r-1 );   myGLCD.drawCircle(maxx-(3*k),(1*k),r-2 );
+ myGLCD.drawCircle(maxx-(4*k),(2*k),r );    myGLCD.drawCircle(maxx-(4*k),(2*k),r-1 );   myGLCD.drawCircle(maxx-(4*k),(2*k),r-2 );
+ myGLCD.drawCircle(maxx-(5*k),(3*k),r );    myGLCD.drawCircle(maxx-(5*k),(3*k),r-1 );   myGLCD.drawCircle(maxx-(5*k),(3*k),r-2 );
+ myGLCD.drawCircle(maxx-(2*k),(2*k),r );    myGLCD.drawCircle(maxx-(2*k),(2*k),r-1 );   myGLCD.drawCircle(maxx-(2*k),(2*k),r-2 );
+ myGLCD.drawCircle(maxx-(3*k),(3*k),r );    myGLCD.drawCircle(maxx-(3*k),(3*k),r-1 );   myGLCD.drawCircle(maxx-(3*k),(3*k),r-2 );
+ myGLCD.drawCircle(maxx-(4*k),(4*k),r );    myGLCD.drawCircle(maxx-(4*k),(4*k),r-1 );   myGLCD.drawCircle(maxx-(4*k),(4*k),r-2 );
+ myGLCD.drawCircle(maxx-(1*k),(3*k),r );    myGLCD.drawCircle(maxx-(1*k),(3*k),r-1 );   myGLCD.drawCircle(maxx-(1*k),(3*k),r-2 );
+ myGLCD.drawCircle(maxx-(2*k),(4*k),r );    myGLCD.drawCircle(maxx-(2*k),(4*k),r-1 );   myGLCD.drawCircle(maxx-(2*k),(4*k),r-2 );
+ myGLCD.drawCircle(maxx-(3*k),(5*k),r );    myGLCD.drawCircle(maxx-(3*k),(5*k),r-1 );   myGLCD.drawCircle(maxx-(3*k),(5*k),r-2 );
 
-
-  if (a == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka1==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2+40,30,20);
-  if (b == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka2==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2-20,80,20);
-  if (c == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka3==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2-80,130,20);
-
-  if (d == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka4==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2+100,80,20);
-  if (e == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka5==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2+40,130,20);
-  if (f == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka6==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle((maxx+90)/2-20,180,20);
-
-  if (g == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka7==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}  myGLCD.fillCircle((maxx+90)/2+160,130,20);
-  if (h == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka8==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}  myGLCD.fillCircle((maxx+90)/2+100,180,20);
-  if (ch== 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka9==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}  myGLCD.fillCircle((maxx+90)/2+40,230,20);
+}
+ 
+  if (a == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka1==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(3*k),(1*k),r-3 );
+  if (b == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka2==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(4*k),(2*k),r-3 );
+  if (c == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka3==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(5*k),(3*k),r-3 );
+  if (d == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka4==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(2*k),(2*k),r-3 );
+  if (e == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka5==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(3*k),(3*k),r-3 );
+  if (f == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka6==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(4*k),(4*k),r-3 );
+  if (g == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka7==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(1*k),(3*k),r-3 );
+  if (h == 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka8==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(2*k),(4*k),r-3 );
+  if (ch== 1) {myGLCD.setColor(0,0,255);}else if(lockkuzelka9==true){myGLCD.setColor(255,0,0);}     else{myGLCD.setColor(0,200,0);}   myGLCD.fillCircle(maxx-(3*k),(5*k),r-3 );
+ 
 }
 
 void onegame (const char* text)
@@ -416,26 +436,14 @@ void onegame (const char* text)
   screen="onegame";
   myGLCD.clrScr();
   myGLCD.fillScr(228,185,80);
-  myGLCD.setColor(0,0,0);
-  myGLCD.drawCircle((maxx+90)/2+40,30,20 ); myGLCD.drawCircle((maxx+90)/2+40,30,21 ); myGLCD.drawCircle((maxx+90)/2+40,30,22 );
-  myGLCD.drawCircle((maxx+90)/2-20,80,20 ); myGLCD.drawCircle((maxx+90)/2-20,80,21 ); myGLCD.drawCircle((maxx+90)/2-20,80,22 );
-  myGLCD.drawCircle((maxx+90)/2-80,130,20); myGLCD.drawCircle((maxx+90)/2-80,130,21); myGLCD.drawCircle((maxx+90)/2-80,130,22);
-
-  myGLCD.drawCircle((maxx+90)/2+100,80,20); myGLCD.drawCircle((maxx+90)/2+100,80,21); myGLCD.drawCircle((maxx+90)/2+100,80,22);
-  myGLCD.drawCircle((maxx+90)/2+40,130,20); myGLCD.drawCircle((maxx+90)/2+40,130,21); myGLCD.drawCircle((maxx+90)/2+40,130,22);
-  myGLCD.drawCircle((maxx+90)/2-20,180,20); myGLCD.drawCircle((maxx+90)/2-20,180,21); myGLCD.drawCircle((maxx+90)/2-20,180,22);
-
-  myGLCD.drawCircle((maxx+90)/2+160,130,20);myGLCD.drawCircle((maxx+90)/2+160,130,21);myGLCD.drawCircle((maxx+90)/2+160,130,22);
-  myGLCD.drawCircle((maxx+90)/2+100,180,20);myGLCD.drawCircle((maxx+90)/2+100,180,21);myGLCD.drawCircle((maxx+90)/2+100,180,22);
-  myGLCD.drawCircle((maxx+90)/2+40,230,20 );myGLCD.drawCircle((maxx+90)/2+40,230,21 );myGLCD.drawCircle((maxx+90)/2+40,230,22 );
   myGLCD.setColor(51,35,7);
   myGLCD.setBackColor(228,185,80);
-  myGLCD.setFont(SmallFont);
+  myGLCD.setFont(SmallFont); 
   myGLCD.print(text,10,40,-45);
   myGLCD.setFont(arial_bold);
-   myGLCD.drawRoundRect(160,230,260,260);
-  myGLCD.drawLine(193,230,193,260);
-  myGLCD.drawLine(226,230,226,260);
+             myGLCD.drawRoundRect(360,230,460,260);
+             myGLCD.drawLine(393,230,393,260);
+             myGLCD.drawLine(426,230,426,260);
   myGLCD.print("1",15,60,0);
   myGLCD.print("2",15,80,0);
   myGLCD.print("3",15,100,0);
@@ -467,10 +475,10 @@ else  {velikosttabulky=78;}
              for(int l = 40;l<velikosttabulky;l=l+40)
                { 
                  myGLCD.setColor(228,185,80);
-                 myGLCD.fillRoundRect(161,231,259,259);
+                 myGLCD.fillRoundRect(361,231,459,259);
                  myGLCD.setColor(0,0,0);
-                 myGLCD.drawLine(193,230,193,260);
-                  myGLCD.drawLine(226,230,226,260);
+                    myGLCD.drawLine(393,230,393,260);
+                    myGLCD.drawLine(426,230,426,260);
                  int soucet_hodu = 0;
                  minulejsoucet =0;
                  nastole = 9;
@@ -479,6 +487,7 @@ else  {velikosttabulky=78;}
                                   while(digitalRead(tlac)==0)
                                   { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
 }
+                                    kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
                                       soucet = stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9);
                                       soucet =9-soucet;
                                       if (minulejsoucet ==9){
@@ -501,13 +510,12 @@ else  {velikosttabulky=78;}
                                       }
                                       itoa(soucet,buf,10);
                                       myGLCD.setColor(0,0,0);
-                                      myGLCD.print(buf,p+4,234,0);  
+                                      myGLCD.print(buf,p+204,234,0);  
                                       soucet_hodu = soucet_hodu + soucet;
                                       itoa(soucet_hodu,buf1,10);
                                       minulejsoucet=minulejsoucet+soucet;
                                 delay(400);
-                                 itoa(minulejsoucet,buf2,10);
-                                 myGLCD.print(buf2,300,240,0); 
+                                
                               }
                     myGLCD.print(buf1,l,k,0); 
                     zmenahrace();    
