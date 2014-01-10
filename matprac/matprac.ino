@@ -30,7 +30,8 @@ int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
 int minulejsoucet =0;
-
+int pocethracu=3;
+int velikosttabulky=0;
 boolean lockkuzelka1 =false;
 boolean lockkuzelka2 =false;
 boolean lockkuzelka3 =false;
@@ -447,21 +448,23 @@ void onegame (const char* text)
   myGLCD.print("10",0,240,0);
   myGLCD.drawLine(31,56,31,256);
   myGLCD.drawLine(72,56,72,256);
-  myGLCD.drawLine(113,56,113,256);
-  myGLCD.drawLine(154,56,154,256);
+ 
+  
+     if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,56,113,256);}
+else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);} 
+else  {velikosttabulky=78;}
     for(int p=50;p<270;p=p+20)
         {
-    myGLCD.drawLine(0,p+6,154,p+6);
+    myGLCD.drawLine(0,p+6,velikosttabulky-6,p+6);
         }
   while(endgame==false)
 { 
        if (digitalRead(tlac) ==1)
 
-
 {
     for(int k=60;k<260;k=k+20)
     {
-             for(int l = 40;l<160;l=l+40)
+             for(int l = 40;l<velikosttabulky;l=l+40)
                { 
                  myGLCD.setColor(228,185,80);
                  myGLCD.fillRoundRect(161,231,259,259);
@@ -517,12 +520,13 @@ void onegame (const char* text)
 
 }
 
-void zmenahrace(int hrac)
+void zmenahrace()
 {
                                       for(int c = 1;c<10;c++)
                                       {
                                        zmenstavkuzelek(false,c);
                                       }
+
                                           
 }
 
