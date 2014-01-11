@@ -197,9 +197,16 @@ void setup()
  spistar();
 Serial.begin(9600);
   if (!SD.begin(53)) {
+   tone(13, 800,500);
+  }
+  else
+  {
+    tone(13, 400,200);
+    delay(500);
+    tone(13, 400,200);
     myGLCD.setColor(255,0,0);
-    myGLCD.print("ko",CENTER,1);
-    return;
+    myGLCD.print("SD miss",CENTER,1);
+   
   }
 
   randomSeed(analogRead(0));
@@ -460,32 +467,32 @@ void onegame (const char* text)
   myGLCD.setFont(SmallFont); 
   myGLCD.print(text,10,40,-45);
   myGLCD.setFont(arial_bold);
-       if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,56,113,256);posun=maxx-184;posunkol(120);}
-else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);posun=maxx-184;posunkol(160);} 
-else if (pocethracu==4){velikosttabulky=200;myGLCD.drawLine(113,56,113,256);myGLCD.drawLine(154,56,154,256);myGLCD.drawLine(195,56,195,256);posun=maxx-184;posunkol(200);} 
+       if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,50,113,250);posun=maxx-184;posunkol(120);}
+else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,50,113,250);myGLCD.drawLine(154,50,154,250);posun=maxx-184;posunkol(160);} 
+else if (pocethracu==4){velikosttabulky=200;myGLCD.drawLine(113,50,113,250);myGLCD.drawLine(154,50,154,250);myGLCD.drawLine(195,50,195,250);posun=maxx-184;posunkol(200);} 
 
 else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
     for(int p=50;p<270;p=p+20)
         {
-    myGLCD.drawLine(0,p+6,velikosttabulky-6,p+6);
+    myGLCD.drawLine(0,p,velikosttabulky-6,p);
         }
                                 
             
-  myGLCD.print("1",15,60,0);
-  myGLCD.print("2",15,80,0);
-  myGLCD.print("3",15,100,0);
-  myGLCD.print("4",15,120,0);
-  myGLCD.print("5",15,140,0);
-  myGLCD.print("6",15,160,0);
-  myGLCD.print("7",15,180,0);
-  myGLCD.print("8",15,200,0);
-  myGLCD.print("9",15,220,0);
-  myGLCD.print("10",0,240,0);
-  myGLCD.drawLine(31,56,31,256);
-  myGLCD.drawLine(72,56,72,256);
+  myGLCD.print("1",15,60-6,0);
+  myGLCD.print("2",15,80-6,0);
+  myGLCD.print("3",15,100-6,0);
+  myGLCD.print("4",15,120-6,0);
+  myGLCD.print("5",15,140-6,0);
+  myGLCD.print("6",15,160-6,0);
+  myGLCD.print("7",15,180-6,0);
+  myGLCD.print("8",15,200-6,0);
+  myGLCD.print("9",15,220-6,0);
+  myGLCD.print("10",0,240-6,0);
+  myGLCD.drawLine(31,50,31,250);
+  myGLCD.drawLine(72,50,72,250);
  
   myGLCD.setBackColor(0,200,0);
-  myGLCD.print(" ",40,60,0);
+  myGLCD.print("  ",40,54,0);
   myGLCD.setBackColor(228,185,80);
 
   while(endgame==false)
@@ -509,7 +516,7 @@ else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
                      for(int p = 160;p<280;p=p+40)
                      {
                                myGLCD.setBackColor(0,200,0);
-                               myGLCD.print(" ",l,k,0);
+                               myGLCD.print("  ",l,k-6,0);
                                myGLCD.setBackColor(228,185,80);
                                   while(digitalRead(tlac)==0)
                                   { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
@@ -544,7 +551,7 @@ else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
                                 delay(400);
                                 
                               }
-                    myGLCD.print(buf1,l,k,0); 
+                    myGLCD.print(buf1,l,k-6,0); 
                     zmenahrace(l,k);    
                }
    }
