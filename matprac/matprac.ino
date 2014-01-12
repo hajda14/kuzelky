@@ -372,7 +372,7 @@ myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,85);                              m
 myGLCD.fillRect(maxx/2+92,68,maxx/2+118,72);                                   myGLCD.fillRect(maxx/2+92,128,maxx/2+118,132);
 myGLCD.fillRect(maxx/2+103,57,maxx/2+107,82);        
 
-itoa(pocethracu++,bufL,10);
+itoa(pocethracu,bufL,10);
 myGLCD.setBackColor(255,255,255);
 myGLCD.print(bufL,maxx/2+90,89);
 myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);
@@ -586,11 +586,16 @@ void zmenahrace(int l, int k)
                                   { 
                                     kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
                                     delay(500);
+                                    tone(13, 250,500);
                                     kuzelky(1,1,1,1,1,1,1,1,1);
+                                    
                                     delay(500);
                               
                                   }
-                                      
+                                  noTone(13);
+                                   tone(13, 900,400);
+                                   noTone(13);
+                                   tone(13, 500,400);   
                                           
 }
 
