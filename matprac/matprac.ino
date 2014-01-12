@@ -33,7 +33,7 @@ int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
 int minulejsoucet =0;
-int pocethracu=4;
+int pocethracu=0;
 int velikosttabulky=0;
 boolean lockkuzelka1 =false;
 boolean lockkuzelka2 =false;
@@ -47,6 +47,7 @@ boolean lockkuzelka9 =false;
 
 char buf[12]; 
 char buf1[12];
+char bufL[12];
 
 /* touch*/
 struct pix_
@@ -358,12 +359,24 @@ void oneplayer(const char* text)
   screen="oneplayer";
   myGLCD.clrScr();
   myGLCD.fillScr(0,100,0);
-  myGLCD.setColor(25,25,220);
-  myGLCD.fillRoundRect(maxx/2+90,85,maxx/2+120,115);
-    myGLCD.setColor(0,0,0);
-    myGLCD.drawRoundRect(maxx/2+90,85,maxx/2+120,115);
-       myGLCD.fillRect(maxx/2+92,98,maxx/2+118,102);
-       myGLCD.fillRect(maxx/2+103,87,maxx/2+107,112);
+  
+myGLCD.setColor(225,225,225);
+myGLCD.fillRoundRect(maxx/2+90,55,maxx/2+120,145); 
+myGLCD.setColor(0,0,0);
+myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);
+myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);
+myGLCD.setColor(25,25,220);
+myGLCD.fillRoundRect(maxx/2+90,55,maxx/2+120,85);                              myGLCD.fillRoundRect(maxx/2+90,115,maxx/2+120,145);
+myGLCD.setColor(0,0,0);
+myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,85);                              myGLCD.drawRoundRect(maxx/2+90,115,maxx/2+120,145);
+myGLCD.fillRect(maxx/2+92,68,maxx/2+118,72);                                   myGLCD.fillRect(maxx/2+92,128,maxx/2+118,132);
+myGLCD.fillRect(maxx/2+103,57,maxx/2+107,82);        
+
+itoa(pocethracu++,bufL,10);
+myGLCD.setBackColor(255,255,255);
+myGLCD.print(bufL,maxx/2+90,89);
+myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);
+myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);
 
   textbox(maxx/2-80,90,160,20,text);
   button(maxx/4+maxx/4+20,160,80,30,"OK");
@@ -492,7 +505,7 @@ else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
   myGLCD.drawLine(72,50,72,250);
  
   myGLCD.setBackColor(0,200,0);
-  myGLCD.print("  ",40,54,0);
+  myGLCD.print(" ",40,54,0);
   myGLCD.setBackColor(228,185,80);
 
   while(endgame==false)
@@ -516,7 +529,7 @@ else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
                      for(int p = 160;p<280;p=p+40)
                      {
                                myGLCD.setBackColor(0,200,0);
-                               myGLCD.print("  ",l,k-6,0);
+                               myGLCD.print(" ",l,k-6,0);
                                myGLCD.setBackColor(228,185,80);
                                   while(digitalRead(tlac)==0)
                                   { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
@@ -568,6 +581,15 @@ void zmenahrace(int l, int k)
                                       {
                                        zmenstavkuzelek(false,c);
                                       }
+                                      while(stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9)!=9)
+                                      
+                                  { 
+                                    kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
+                                    delay(500);
+                                    kuzelky(1,1,1,1,1,1,1,1,1);
+                                    delay(500);
+                              
+                                  }
                                       
                                           
 }
@@ -751,10 +773,14 @@ void waitclick ()
                                 if ((lx>maxx/2-80)&& (lx<maxx/2-80+160)&& (ly>160)&&(ly<190)){skore();}
                               } 
                               if (screen == "oneplayer")
-                              
+                              //(maxx/2+90,55,maxx/2+120,85) pismo
+                              //myGLCD.fillRoundRect(maxx/2+90,55,maxx/2+120,85);+   myGLCD.fillRoundRect(maxx/2+90,115,maxx/2+120,145);-
                               {
-                                if ((lx>maxx/4)&& (lx<maxx/4+80)&& (ly<160)&&(ly>190)){menu();}
-                                if ((lx>maxx/2-80)&& (lx<maxx/2-80+160)&& (ly>90)&&(ly<110)){oneplayerkey();}
+                              if ((lx>maxx/2+90)&& (lx<maxx/2+120)&& (ly>55)&&(ly<85)) {pocethracu++;itoa(pocethracu,bufL,10);myGLCD.setBackColor(255,255,255);myGLCD.print("  ",maxx/2+90,89);myGLCD.print(bufL,maxx/2+90,89);myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);delay(200);}   //+
+                              if ((lx>maxx/2+90)&& (lx<maxx/2+120)&& (ly>90)&&(ly<145)){pocethracu--;itoa(pocethracu,bufL,10);myGLCD.setBackColor(255,255,255);myGLCD.print("  ",maxx/2+90,89);myGLCD.print(bufL,maxx/2+90,89);myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);delay(200);}  //-
+                              
+                              if ((lx>maxx/4)&& (lx<maxx/4+80)&& (ly>160)&&(ly<190)){menu();}
+                              if ((lx>maxx/2-80)&& (lx<maxx/2-80+160)&& (ly>90)&&(ly<110)){oneplayerkey();}
                                // maxx/4+maxx/4+20,160,80,30
                               if ((lx>maxx/4+maxx/4+20)&& (lx<maxx/4+maxx/4+100)&& (ly>160)&&(ly<190)){onegame(textboxtext);}
                                //
