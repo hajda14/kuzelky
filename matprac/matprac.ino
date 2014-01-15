@@ -12,6 +12,7 @@
 #define IRQ      2 
 boolean endgame = false;
 const char* screen = "splash";
+const char* oldtextbox = "";
 char* textboxtext;
 int nastole = 0;
 int log1 = A6;
@@ -24,16 +25,18 @@ int kuzelka6 = A11;
 int kuzelka7 = A13;
 int kuzelka8 = A15;
 int kuzelka9 = A14;
-
+int kolo =-1;
+const char* hraci[] = {"hrac1","hrac2","hrac3","hrac4","hrac5","hrac6","hrac7","hrac8","hrac9","hrac10"}; 
+int hrac[10][10] = {{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0}};
 int pozicepismakol=0;
 int posun = 240;
 int ulozenejposun = 0;
-int aktualnihrac = 1;
+int aktualnihrac = 0;
 int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
 int minulejsoucet =0;
-int pocethracu=0;
+int pocethracu=1;
 int velikosttabulky=0;
 boolean lockkuzelka1 =false;
 boolean lockkuzelka2 =false;
@@ -343,8 +346,8 @@ void menu()
   myGLCD.drawCircle(356,197,6);
   myGLCD.setColor(0,0,0);
   myGLCD.print("!! Kuzelky !!",CENTER,6);
-  button(maxx/2-80,60,160,30,"1 hrac");
-  button(maxx/2-80,110,160,30,"hraci");
+  button(maxx/2-80,60,160,30,"HRA");
+  button(maxx/2-80,110,160,30,"nastav");
   button(maxx/2-80,160,160,30,"skore");
 
 
@@ -374,6 +377,7 @@ myGLCD.fillRect(maxx/2+103,57,maxx/2+107,82);
 
 itoa(pocethracu,bufL,10);
 myGLCD.setBackColor(255,255,255);
+myGLCD.print("  ",maxx/2+90,89);
 myGLCD.print(bufL,maxx/2+90,89);
 myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);
 myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);
@@ -394,16 +398,38 @@ void oneplayerkey()
   textboxtext = "";
   myGLCD.clrScr();
   myGLCD.fillScr(0,100,0);
-  textbox(maxx/2-80,20,160,20,"");
-  button(maxx/4+maxx/4+20,90,80,30,"OK");
-  button(maxx/4,90,80,30,"BACK");
-  /*   SDBMP(0,maxy/2+30,"KLA1.BMP");
-   SDBMP(0+152,maxy/2+30,"KLA2.BMP");
-   SDBMP(0+304,maxy/2+30,"KLA3.BMP");*/
+  textbox(maxx/2-80,50,160,20,"");
+  button(maxx-110,50,80,30,"OK");
+  button(30,50,80,30,"BACK");
   keyboard();
  
 
 
+}
+
+void obnovtabulku()
+{
+
+       if (pocethracu==2){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
+    else if (pocethracu==3){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==4){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==5){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==6){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==7){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==8){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==9){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+   else if (pocethracu==10){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);}
+
+else  {velikosttabulky=78;posunkol(78);posun=maxx-184;pocethracu=1;}
+    for(int p=50;p<270;p=p+20)
+        {
+    myGLCD.drawLine(0,p,velikosttabulky,p);
+        }
+ 
+ for (int o=0;o<velikosttabulky+31;o=o+31)
+{
+myGLCD.drawLine(o,50,o,272);
+} 
 }
 
 void skore()
@@ -467,7 +493,7 @@ void posunkol(int x)//160  +33  +66
              myGLCD.drawLine(x+33,230,x+33,260);
              myGLCD.drawLine(x+66,230,x+66,260);
              
-             pozicepismakol=x;
+             pozicepismakol=x+10;
 }
 
 void onegame (const char* text)
@@ -478,28 +504,18 @@ void onegame (const char* text)
   myGLCD.setColor(51,35,7);
   myGLCD.setBackColor(228,185,80);
   myGLCD.setFont(SmallFont); 
-  myGLCD.print(text,10,40,-45);
+  for (int j =31;j<pocethracu*31+62;j=j+31){   myGLCD.drawLine(j,51,j+31,0); }
+  int w = -1;
+  for (int t = 46;t<pocethracu*31+46;t=t+31)
+  {
+  w++;  
+  myGLCD.print(hraci[w],t,40,-57);
+  myGLCD.print(hraci[w],t+1,40,-57);
+  myGLCD.print(hraci[w],t+1,39,-57);
+  }
+  
   myGLCD.setFont(arial_bold);
-         if (pocethracu==2){velikosttabulky=120;posun=maxx-184;posunkol(120);}
-    else if (pocethracu==3){velikosttabulky=160;posun=maxx-184;posunkol(160);} 
-    else if (pocethracu==4){velikosttabulky=200;posun=maxx-200;posunkol(200);} 
-    else if (pocethracu==5){velikosttabulky=240;posun=maxx-240;posunkol(240);} 
-    else if (pocethracu==6){velikosttabulky=280;posun=maxx-280;posunkol(280);} 
-    else if (pocethracu==7){velikosttabulky=320;posun=maxx-320;posunkol(320);} 
-    else if (pocethracu==8){velikosttabulky=360;posun=maxx-360;posunkol(360);} 
-    else if (pocethracu==9){velikosttabulky=400;posun=maxx-400;posunkol(400);} 
-   else if (pocethracu==10){velikosttabulky=440;posun=maxx-440;posunkol(440);} 
-
-else  {velikosttabulky=78;posunkol(78);posun=maxx-184;pocethracu=1;}
-    for(int p=50;p<270;p=p+20)
-        {
-    myGLCD.drawLine(0,p,velikosttabulky-10,p);
-        }
- 
- for (int o=72;o<velikosttabulky;o=o+31)
-{
-myGLCD.drawLine(o,50,o,250);
-} 
+     obnovtabulku();
             
   myGLCD.print("1",15,60-6,0);
   myGLCD.print("2",15,80-6,0);
@@ -511,11 +527,12 @@ myGLCD.drawLine(o,50,o,250);
   myGLCD.print("8",15,200-6,0);
   myGLCD.print("9",15,220-6,0);
   myGLCD.print("10",0,240-6,0);
-  myGLCD.drawLine(31,50,31,250);
+  myGLCD.print("=",10,260-6,0);
+  myGLCD.drawLine(31,50,31,272);
  
  
   myGLCD.setBackColor(0,200,0);
-  myGLCD.print(" ",40,54,0);
+  myGLCD.print(" ",43,54,0);
   myGLCD.setBackColor(228,185,80);
 
   while(endgame==false)
@@ -525,25 +542,26 @@ myGLCD.drawLine(o,50,o,250);
 {
     for(int k=60;k<260;k=k+20)
     {
-             for(int l = 40;l<velikosttabulky;l=l+40)
+        if (kolo==10){endgame=true;}else{kolo++;}
+      
+             for(int l = 31;l<velikosttabulky;l=l+31)
                { 
-       if (pocethracu==2){velikosttabulky=120;posun=maxx-184;posunkol(120);}
-    else if (pocethracu==3){velikosttabulky=160;posun=maxx-184;posunkol(160);} 
-    else if (pocethracu==4){velikosttabulky=200;posun=maxx-184;posunkol(200);} 
-    else if (pocethracu==5){velikosttabulky=240;posun=maxx-184;posunkol(240);} 
-    else if (pocethracu==6){velikosttabulky=280;posun=maxx-184;posunkol(280);} 
-    else if (pocethracu==7){velikosttabulky=320;posun=maxx-184;posunkol(320);} 
-    else if (pocethracu==8){velikosttabulky=360;posun=maxx-184;posunkol(360);} 
-    else if (pocethracu==9){velikosttabulky=400;posun=maxx-184;posunkol(400);} 
-   else if (pocethracu==10){velikosttabulky=440;posun=maxx-184;posunkol(440);} 
-                     
+         if (pocethracu==2){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
+    else if (pocethracu==3){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==4){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==5){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==6){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==7){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==8){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+    else if (pocethracu==9){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
+   else if (pocethracu==10){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
                  int soucet_hodu = 0;
                  minulejsoucet =0;
                  nastole = 9;
-                     for(int p = 160;p<280;p=p+40)
+                     for(int p = 187;p<280;p=p+31)
                      {
                                myGLCD.setBackColor(0,200,0);
-                               myGLCD.print(" ",l,k-6,0);
+                               myGLCD.print(" ",l+3,k-6,0);
                                myGLCD.setBackColor(228,185,80);
                                   while(digitalRead(tlac)==0)
                                   { kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
@@ -571,7 +589,7 @@ myGLCD.drawLine(o,50,o,250);
                                       }
                                       itoa(soucet,buf,10);
                                       myGLCD.setColor(0,0,0);
-                                      myGLCD.print(buf,p+pozicepismakol-159,234,0);  
+                                      myGLCD.print(buf,p+pozicepismakol-180,234,0);  
                                       soucet_hodu = soucet_hodu + soucet;
                                       itoa(soucet_hodu,buf1,10);
                                       minulejsoucet=minulejsoucet+soucet;
@@ -579,6 +597,8 @@ myGLCD.drawLine(o,50,o,250);
                                 
                               }
                     myGLCD.print(buf1,l,k-6,0); 
+                    hrac[aktualnihrac][kolo]=soucet_hodu;
+                    obnovtabulku();
                     zmenahrace(l,k);    
                }
    }
@@ -610,6 +630,17 @@ void zmenahrace(int l, int k)
                                    tone(13, 900,400);
                                    noTone(13);
                                    tone(13, 500,400);   
+                                   
+                                   if (aktualnihrac==pocethracu)
+                                   {
+                                   aktualnihrac=0;
+                                   }
+                                   else
+                                   {
+                                     aktualnihrac++;
+                                   }
+                                   
+                                   
                                           
 }
 
@@ -795,20 +826,24 @@ void waitclick ()
                               //(maxx/2+90,55,maxx/2+120,85) pismo
                               //myGLCD.fillRoundRect(maxx/2+90,55,maxx/2+120,85);+   myGLCD.fillRoundRect(maxx/2+90,115,maxx/2+120,145);-
                               {
-                              if ((lx>maxx/2+90)&& (lx<maxx/2+120)&& (ly>55)&&(ly<85)) {pocethracu++;itoa(pocethracu,bufL,10);myGLCD.setBackColor(255,255,255);myGLCD.print("  ",maxx/2+90,89);myGLCD.print(bufL,maxx/2+90,89);myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);delay(200);}   //+
-                              if ((lx>maxx/2+90)&& (lx<maxx/2+120)&& (ly>90)&&(ly<145)){pocethracu--;itoa(pocethracu,bufL,10);myGLCD.setBackColor(255,255,255);myGLCD.print("  ",maxx/2+90,89);myGLCD.print(bufL,maxx/2+90,89);myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);delay(200);}  //-
+                              if ((lx>maxx/2+90)&& (lx<maxx/2+120)&& (ly>55)&&(ly<85)) {if (pocethracu==10){}else{pocethracu++;}itoa(pocethracu,bufL,10);myGLCD.setBackColor(255,255,255);myGLCD.print("  ",maxx/2+90,89);myGLCD.print(bufL,maxx/2+90,89);myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);delay(200);}   //+
+                              if ((lx>maxx/2+90)&& (lx<maxx/2+120)&& (ly>90)&&(ly<145)){if (pocethracu==1){}else{pocethracu--;}itoa(pocethracu,bufL,10);myGLCD.setBackColor(255,255,255);myGLCD.print("  ",maxx/2+90,89);myGLCD.print(bufL,maxx/2+90,89);myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);delay(200);}  //-
                               
                               if ((lx>maxx/4)&& (lx<maxx/4+80)&& (ly>160)&&(ly<190)){menu();}
                               if ((lx>maxx/2-80)&& (lx<maxx/2-80+160)&& (ly>90)&&(ly<110)){oneplayerkey();}
                                // maxx/4+maxx/4+20,160,80,30
-                              if ((lx>maxx/4+maxx/4+20)&& (lx<maxx/4+maxx/4+100)&& (ly>160)&&(ly<190)){onegame(textboxtext);}
+                              if ((lx>maxx/4+maxx/4+20)&& (lx<maxx/4+maxx/4+100)&& (ly>160)&&(ly<190)){hraci[0]=textboxtext;onegame(textboxtext);}
                                //
                               }   
                               if (screen == "oneplayerkey")
+                               // button(maxx-110,50,80,30,"OK");
+                               // button(30,50,80,30,"BACK");
                                                             {
-                                if ((lx>maxx/4)&& (lx<maxx/4+80)&& (ly>90)&&(ly<120)){oneplayer(textboxtext);}
-                                                             
-                                if (ly>163){
+                                if ((lx>maxx-110)&& (lx<maxx-30)&& (ly>50)&&(ly<80)){oneplayer(textboxtext);}
+                                
+                                if ((lx>30)&& (lx<110)&& (ly>50)&&(ly<80)){oneplayer("");}
+                                
+                                if ((ly>163)&& (ly<271)){
                                   if (getkeyboard(lx,ly)=="DEL")
                                   {
                                    textboxtext[strlen(textboxtext)-1]='\0';
@@ -816,7 +851,7 @@ void waitclick ()
                                   else{
                                   textboxtext = spoj(textboxtext,getkeyboard(lx,ly));
                                   }
-                                  textbox(maxx/2-80,20,160,20,textboxtext);
+                                  textbox(maxx/2-80,50,160,20,textboxtext);
                                 }
                               }         
                              
