@@ -644,6 +644,32 @@ void zmenahrace(int l, int k)
                                           
 }
 
+int sum(int khrac)
+{
+  int vysledek;
+for (int z=0;z<10;z++)
+{
+vysledek = vysledek + hrac[khrac][z];
+}
+}
+
+void winscreen()
+{
+ screen="winscreen";
+  myGLCD.clrScr();
+  myGLCD.fillScr(0,100,0);
+ 
+ int shrac1 = sum(1); int shrac2 = sum(2); int shrac3 = sum(3); 
+ int shrac4 = sum(4); int shrac5 = sum(5); int shrac6 = sum(6); 
+ int shrac7 = sum(7); int shrac8 = sum(8); int shrac9 = sum(9); 
+ int shrac10 = sum(10); 
+
+                                          
+}
+
+
+
+
 int stavkuzelky(int kuzel)
 {
    switch (kuzel) {
