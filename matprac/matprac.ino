@@ -379,7 +379,7 @@ myGLCD.drawRoundRect(maxx/2+90,55,maxx/2+120,145);
 myGLCD.drawRoundRect(maxx/2+89,54,maxx/2+121,146);
 
   textbox(maxx/2-80,90,160,20,text);
-  button(maxx/4+maxx/4+20,160,80,30,"OK");
+  button(maxx/4+maxx/4+20,160,80,30,"HRA!");
   button(maxx/4,160,80,30,"BACK");
 
 
@@ -480,16 +480,26 @@ void onegame (const char* text)
   myGLCD.setFont(SmallFont); 
   myGLCD.print(text,10,40,-45);
   myGLCD.setFont(arial_bold);
-       if (pocethracu==2){velikosttabulky=120; myGLCD.drawLine(113,50,113,250);posun=maxx-184;posunkol(120);}
-else if (pocethracu==3){velikosttabulky=160;myGLCD.drawLine(113,50,113,250);myGLCD.drawLine(154,50,154,250);posun=maxx-184;posunkol(160);} 
-else if (pocethracu==4){velikosttabulky=200;myGLCD.drawLine(113,50,113,250);myGLCD.drawLine(154,50,154,250);myGLCD.drawLine(195,50,195,250);posun=maxx-184;posunkol(200);} 
+         if (pocethracu==2){velikosttabulky=120;posun=maxx-184;posunkol(120);}
+    else if (pocethracu==3){velikosttabulky=160;posun=maxx-184;posunkol(160);} 
+    else if (pocethracu==4){velikosttabulky=200;posun=maxx-200;posunkol(200);} 
+    else if (pocethracu==5){velikosttabulky=240;posun=maxx-240;posunkol(240);} 
+    else if (pocethracu==6){velikosttabulky=280;posun=maxx-280;posunkol(280);} 
+    else if (pocethracu==7){velikosttabulky=320;posun=maxx-320;posunkol(320);} 
+    else if (pocethracu==8){velikosttabulky=360;posun=maxx-360;posunkol(360);} 
+    else if (pocethracu==9){velikosttabulky=400;posun=maxx-400;posunkol(400);} 
+   else if (pocethracu==10){velikosttabulky=440;posun=maxx-440;posunkol(440);} 
 
-else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
+else  {velikosttabulky=78;posunkol(78);posun=maxx-184;pocethracu=1;}
     for(int p=50;p<270;p=p+20)
         {
-    myGLCD.drawLine(0,p,velikosttabulky-6,p);
+    myGLCD.drawLine(0,p,velikosttabulky-10,p);
         }
-                                
+ 
+ for (int o=72;o<velikosttabulky;o=o+31)
+{
+myGLCD.drawLine(o,50,o,250);
+} 
             
   myGLCD.print("1",15,60-6,0);
   myGLCD.print("2",15,80-6,0);
@@ -502,7 +512,7 @@ else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
   myGLCD.print("9",15,220-6,0);
   myGLCD.print("10",0,240-6,0);
   myGLCD.drawLine(31,50,31,250);
-  myGLCD.drawLine(72,50,72,250);
+ 
  
   myGLCD.setBackColor(0,200,0);
   myGLCD.print(" ",40,54,0);
@@ -517,11 +527,15 @@ else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
     {
              for(int l = 40;l<velikosttabulky;l=l+40)
                { 
-                 if (pocethracu==2){posun=maxx-184;posunkol(120);}
-else if (pocethracu==3){posun=maxx-184;posunkol(160);} 
-else if (pocethracu==4){posun=maxx-184;posunkol(200);} 
-
-else  {velikosttabulky=78;posunkol(78);posun=maxx-184;}
+       if (pocethracu==2){velikosttabulky=120;posun=maxx-184;posunkol(120);}
+    else if (pocethracu==3){velikosttabulky=160;posun=maxx-184;posunkol(160);} 
+    else if (pocethracu==4){velikosttabulky=200;posun=maxx-184;posunkol(200);} 
+    else if (pocethracu==5){velikosttabulky=240;posun=maxx-184;posunkol(240);} 
+    else if (pocethracu==6){velikosttabulky=280;posun=maxx-184;posunkol(280);} 
+    else if (pocethracu==7){velikosttabulky=320;posun=maxx-184;posunkol(320);} 
+    else if (pocethracu==8){velikosttabulky=360;posun=maxx-184;posunkol(360);} 
+    else if (pocethracu==9){velikosttabulky=400;posun=maxx-184;posunkol(400);} 
+   else if (pocethracu==10){velikosttabulky=440;posun=maxx-184;posunkol(440);} 
                      
                  int soucet_hodu = 0;
                  minulejsoucet =0;
