@@ -25,13 +25,16 @@ int kuzelka6 = A11;
 int kuzelka7 = A13;
 int kuzelka8 = A15;
 int kuzelka9 = A14;
+int vyherce = 0;
+int vyherce2 = 0;
+int vyherce3 = 0;
 int kolo =-1;
-const char* hraci[] = {"hrac1","hrac2","hrac3","hrac4","hrac5","hrac6","hrac7","hrac8","hrac9","hrac10"}; 
+const char* hraci[] = {"hrac1","Legie","hrac3","hrac4","hrac5","hrac6","hrac7","hrac8","hrac9","hrac10"}; 
 int hrac[10][10] = {{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0}};
 int pozicepismakol=0;
 int posun = 240;
 int ulozenejposun = 0;
-int aktualnihrac = 0;
+int aktualnihrac = 1;
 int tlac = 11;
 int Dlog1 = 12;
 int soucet = 0;
@@ -410,7 +413,8 @@ void oneplayerkey()
 void obnovtabulku()
 {
 
-       if (pocethracu==2){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
+         if (pocethracu==1){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
+    else if (pocethracu==2){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
     else if (pocethracu==3){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
     else if (pocethracu==4){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
     else if (pocethracu==5){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
@@ -542,11 +546,12 @@ void onegame (const char* text)
 {
     for(int k=60;k<260;k=k+20)
     {
-        if (kolo==10){endgame=true;}else{kolo++;}
+        if (kolo==9){endgame=true;winscreen();break;}else{kolo++;}
       
              for(int l = 31;l<velikosttabulky;l=l+31)
                { 
-         if (pocethracu==2){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
+         if (pocethracu==1){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
+    else if (pocethracu==2){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);}
     else if (pocethracu==3){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
     else if (pocethracu==4){velikosttabulky=31+pocethracu*31;posun=maxx-184;posunkol(velikosttabulky+10);} 
     else if (pocethracu==5){velikosttabulky=31+pocethracu*31;posun=maxx-velikosttabulky;posunkol(velikosttabulky+10);} 
@@ -598,13 +603,21 @@ void onegame (const char* text)
                               }
                     myGLCD.print(buf1,l,k-6,0); 
                     hrac[aktualnihrac][kolo]=soucet_hodu;
+                    char bufp[12];
+                    char bufg[12];
+                     itoa(hrac[aktualnihrac][kolo],bufp,10);
+                     itoa(aktualnihrac,bufg,10);
+                     Serial.print(bufg);
+                     Serial.print(" : ");
+                     Serial.println(bufp);
+                     
                     obnovtabulku();
                     zmenahrace(l,k);    
                }
    }
 }
-
- kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
+ if (endgame=false){ kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));}
+ else{}
 } 
 
 }
@@ -615,7 +628,7 @@ void zmenahrace(int l, int k)
                                       {
                                        zmenstavkuzelek(false,c);
                                       }
-                                      while(stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9)!=9)
+                                    /*  while(stavkuzelky(1)+stavkuzelky(2)+stavkuzelky(3)+stavkuzelky(4)+stavkuzelky(5)+stavkuzelky(6)+stavkuzelky(7)+stavkuzelky(8)+stavkuzelky(9)!=9)
                                       
                                   { 
                                     kuzelky(stavkuzelky(1),stavkuzelky(2),stavkuzelky(3),stavkuzelky(4),stavkuzelky(5),stavkuzelky(6),stavkuzelky(7),stavkuzelky(8),stavkuzelky(9));
@@ -630,10 +643,10 @@ void zmenahrace(int l, int k)
                                    tone(13, 900,400);
                                    noTone(13);
                                    tone(13, 500,400);   
-                                   
+                                   */
                                    if (aktualnihrac==pocethracu)
                                    {
-                                   aktualnihrac=0;
+                                   aktualnihrac=1;
                                    }
                                    else
                                    {
@@ -646,15 +659,52 @@ void zmenahrace(int l, int k)
 
 int sum(int khrac)
 {
-  int vysledek;
-for (int z=0;z<10;z++)
+  int vysledek=0;
+  for (int z=0;z<10;z++)
 {
 vysledek = vysledek + hrac[khrac][z];
 }
+return vysledek;
+}
+
+
+int maxi(int u)
+{
+  int vysledek=0;
+   int vysledek2=0;
+    int vysledek3=0;
+  
+
+        for (int z=0;z<10;z++)
+          {
+            if (sum(z)>vysledek) {vysledek=sum(z);vyherce=z-1;}
+          }
+          
+        for (int z=0;z<10;z++)
+          {
+            if (sum(z)>vysledek2 && sum(z)!=vysledek) {vysledek2=sum(z);vyherce2=z-1;}
+          }  
+        for (int z=0;z<10;z++)
+          {
+            if (sum(z)>vysledek3 && sum(z)!=vysledek && sum(z)!=vysledek2) {vysledek3=sum(z);vyherce3=z-1;}
+          }  
+                          
+if (u == 1){return vysledek;}
+if (u == 2){return vysledek2;}
+if (u == 3){return vysledek3;}
+
+}
+
+void nastaveni()
+{
+myGLCD.clrScr();
+myGLCD.fillScr(50,100,80);
+
 }
 
 void winscreen()
 {
+  char buft[12];
  screen="winscreen";
   myGLCD.clrScr();
   myGLCD.fillScr(0,100,0);
@@ -663,6 +713,44 @@ void winscreen()
  int shrac4 = sum(4); int shrac5 = sum(5); int shrac6 = sum(6); 
  int shrac7 = sum(7); int shrac8 = sum(8); int shrac9 = sum(9); 
  int shrac10 = sum(10); 
+ 
+ 
+               itoa(shrac1,buft,10);
+                     Serial.println(buft);
+               itoa(shrac2,buft,10);
+                     Serial.println(buft);
+               itoa(shrac3,buft,10);
+                     Serial.println(buft);
+                     
+               itoa(maxi(1),buft,10);
+                     Serial.print("vyherce: ");
+                     Serial.print(hraci[vyherce]);
+                     Serial.print(" skore:");
+                     Serial.println(buft);
+                     
+                     myGLCD.setColor(0,0,100);
+                     myGLCD.fillRect(maxx/2-60,30,maxx/2+60,maxy/2);
+                     myGLCD.fillRect(maxx/2-60,80,maxx/2-180,maxy/2);
+                     myGLCD.fillRect(maxx/2+60,108,maxx/2+180,maxy/2);
+                     
+                     
+                     myGLCD.print(hraci[vyherce], maxx/2-(strlen(hraci[vyherce])*16)/2,11,0);
+                     myGLCD.print(buft,maxx/2-(strlen(buft)*16)/2,34,0);
+                     
+                     if (pocethracu>1)  {
+                      myGLCD.print(hraci[vyherce2], maxx/2-120-(strlen(hraci[vyherce2])*16)/2,63,0);
+                      itoa(maxi(2),buft,10);
+                     myGLCD.print(buft,maxx/2-120-(strlen(buft)*16)/2,84,0);
+                                        }
+                     
+                     if (pocethracu>2)  {
+                     myGLCD.print(hraci[vyherce3], maxx/2+120-(strlen(hraci[vyherce3])*16)/2,63,0);
+                      itoa(maxi(3),buft,10);
+                     myGLCD.print(buft,maxx/2+120-(strlen(buft)*16)/2,84,0);
+                                         }
+  
+            while(1)
+           {} 
 
                                           
 }
@@ -838,15 +926,15 @@ void waitclick ()
                             //  myGLCD.drawCircle(lx,ly,5);
                                 // Serial.println(lx);
                                 // Serial.println(ly);
-                                 if (ly>163)
-                                   Serial.println(getkeyboard(lx,ly));
+                                 
 				
 	                     
                               
                               if (screen == "menu")
-                              {
+                              {// button(maxx/2-80,110,160,30,"nastav");
                                 if ((lx>maxx/2-80)&& (lx<maxx/2-80+160)&& (ly>60)&&(ly<90)){oneplayer("ahoj");}
                                 if ((lx>maxx/2-80)&& (lx<maxx/2-80+160)&& (ly>160)&&(ly<190)){skore();}
+                                if ((lx>maxx/2-80)&& (lx<maxx/2-80+190)&& (ly>110)&&(ly<140)){nastaveni();}
                               } 
                               if (screen == "oneplayer")
                               //(maxx/2+90,55,maxx/2+120,85) pismo
